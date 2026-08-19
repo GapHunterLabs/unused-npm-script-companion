@@ -1,0 +1,49 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>dev.gaphunter.unusednpmscriptcompanion</id>
+    <name>Unused npm Script Companion</name>
+    <vendor>Gap Hunter Labs</vendor>
+    <description><![CDATA[
+        <p>Gutter icon on every entry of an open <code>package.json</code>'s
+        <code>"scripts"</code> section, showing whether that script is
+        actually <b>referenced</b> anywhere in your project -- or an
+        orphan nobody calls, a real candidate for cleanup.</p>
+        <p><b>Where it looks (v0.1):</b></p>
+        <ul>
+            <li>The <code>package.json</code>'s own other scripts
+            (<code>"build": "npm run clean &amp;&amp; npm run compile"</code>
+            marks <code>clean</code>/<code>compile</code> as used).</li>
+            <li>GitHub Actions workflows
+            (<code>.github/workflows/*.yml</code>) and GitLab CI
+            (<code>.gitlab-ci.yml</code>) next to the package.json.</li>
+            <li><code>README.md</code> next to the package.json.</li>
+        </ul>
+        <p>Only real invocations count -- <code>npm run &lt;name&gt;</code>,
+        <code>yarn &lt;name&gt;</code>, <code>pnpm &lt;name&gt;</code> /
+        <code>pnpm run &lt;name&gt;</code> -- never a bare word match, so a
+        script named <code>build</code> is never flagged as "used" just
+        because the word appears unrelated somewhere in a README
+        paragraph.</p>
+        <p>npm lifecycle scripts (<code>pretest</code>/<code>test</code>/
+        <code>posttest</code>, <code>prepare</code>/<code>prepublishOnly</code>,
+        <code>preinstall</code>/<code>postinstall</code>,
+        <code>preversion</code>/<code>postversion</code>, <code>start</code>,
+        and any real script's own <code>pre</code>/<code>post</code> hook)
+        are never flagged as orphaned, even with zero text references --
+        npm runs those automatically by convention.</p>
+        <p>100% static text/PSI analysis of files already open in your
+        project -- no network call, no Node.js/npm process spawned. A
+        project with no <code>package.json</code>, or one with no
+        <code>"scripts"</code> section, is handled as an honest no-op,
+        never a crash.</p>
+        <p>Free. No license nags, no telemetry, no popups.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.json</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <codeInsight.lineMarkerProvider language="JSON"
+            implementationClass="dev.gaphunter.unusednpmscriptcompanion.gutter.UnusedNpmScriptLineMarkerProvider"/>
+    </extensions>
+</idea-plugin>
