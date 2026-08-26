@@ -45,5 +45,6 @@
     <extensions defaultExtensionNs="com.intellij">
         <codeInsight.lineMarkerProvider language="JSON"
             implementationClass="dev.gaphunter.unusednpmscriptcompanion.gutter.UnusedNpmScriptLineMarkerProvider"/>
+        <notificationGroup id="Unused npm Script Companion" displayType="BALLOON"/>
     </extensions>
 </idea-plugin>
