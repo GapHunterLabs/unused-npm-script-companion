@@ -13,6 +13,7 @@ import dev.gaphunter.unusednpmscriptcompanion.model.NpmScript
 import dev.gaphunter.unusednpmscriptcompanion.model.ScriptUsage
 import dev.gaphunter.unusednpmscriptcompanion.model.UsageVerdict
 import dev.gaphunter.unusednpmscriptcompanion.parse.PackageJsonParser
+import dev.gaphunter.unusednpmscriptcompanion.review.ReviewPrompt
 import dev.gaphunter.unusednpmscriptcompanion.scan.CiFileLocator
 import dev.gaphunter.unusednpmscriptcompanion.scan.UsageScanner
 import java.nio.charset.StandardCharsets
@@ -63,6 +64,15 @@ class UnusedNpmScriptLineMarkerProvider : LineMarkerProviderDescriptor(), DumbAw
             val nameLiteral = nameLiteralOf(element) ?: continue
             val usage = usageByOffset[nameLiteral.textRange.startOffset] ?: continue
             result.add(buildMarker(nameLiteral, usage))
+
+            // Only the orphaned verdict is a real, actionable finding --
+            // the "used" icon shows up on ordinary, healthy scripts too
+            // and would inflate the CTA counter on a normal package.json.
+            if (usage.verdict == UsageVerdict.ORPHANED) {
+                val path = jsonFile.virtualFile?.path ?: continue
+                val lineNumber = jsonFile.viewProvider.document?.getLineNumber(nameLiteral.textRange.startOffset) ?: -1
+                ReviewPrompt.recordHit(jsonFile.project, "$path:$lineNumber")
+            }
         }
     }
 

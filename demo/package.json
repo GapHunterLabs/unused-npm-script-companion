@@ -1,0 +1,12 @@
+{
+  "name": "acmecorp-order-dashboard",
+  "version": "1.4.0",
+  "scripts": {
+    "build": "webpack --mode production",
+    "prebuild": "rimraf dist",
+    "test": "jest",
+    "pretest": "eslint src/",
+    "start": "node server.js",
+    "deploy-legacy": "scp -r dist/ user@old-host:/var/www"
+  }
+}
