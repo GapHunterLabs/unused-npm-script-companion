@@ -10,7 +10,7 @@ process spawned, no network call.
 ## Why it exists
 
 An original idea, not a port of an existing competitor — validated
-against `CONSTITUTION.md` §1's "Plan B permanente" discipline before
+against this catalog's own idea-validation discipline before
 being built: (1) confirmed no plugin in this catalog or in JetBrains
 Marketplace does exactly this ("unused dependency" tools like Knip or
 Jonnyzzz Dependencies analyze packages under `node_modules`, never the
@@ -124,7 +124,7 @@ each line is not.
   which the platform contract guarantees runs on a background thread
   as part of the daemon's slow-line-markers pass — never on the EDT,
   same discipline as every highlighting pass and line-marker provider
-  in this catalog (`CONSTITUTION.md` §6).
+  in this catalog.
 - **Extraction is dumb, interpretation is smart.** `PackageJsonParser`
   only reads what's literally in `"scripts"`; deciding whether a name
   is a lifecycle hook or genuinely orphaned lives entirely in
