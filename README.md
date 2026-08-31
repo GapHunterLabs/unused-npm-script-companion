@@ -34,12 +34,13 @@ evidence of adoption.
 2. **GitHub Actions workflows** — every YAML file directly under
    `.github/workflows` next to the package.json.
 3. **GitLab CI** — `.gitlab-ci.yml` next to the package.json.
-4. **`README.md`** next to the package.json — a textual mention of
+4. **CircleCI** — `.circleci/config.yml` next to the package.json.
+5. **`README.md`** next to the package.json — a textual mention of
    running the script.
 
-**Not covered in v0.1, deferred to a possible future version, not
-silently unsupported:** `Jenkinsfile`, `.circleci/config.yml`,
-`azure-pipelines.yml`, and monorepos with more than one `package.json`
+**Not covered yet, deferred to a possible future version, not
+silently unsupported:** `Jenkinsfile`, `azure-pipelines.yml`, and
+monorepos with more than one `package.json`
 (a script in one workspace package called from another workspace
 package's `package.json` isn't cross-referenced yet — each
 `package.json` is analyzed independently).
@@ -137,10 +138,10 @@ each line is not.
 ## v0.1 scope
 
 Free, all of it — no paywall, nothing held back for a future tier.
-Deferred to a possible future v0.2 (not started, not promised):
+Deferred to a possible future version (not started, not promised):
 full monorepo scanning across several `package.json` files with
 cross-package reference resolution, and CI format coverage beyond
-GitHub Actions/GitLab CI (`Jenkinsfile`, CircleCI, Azure Pipelines).
+GitHub Actions/GitLab CI/CircleCI (`Jenkinsfile`, Azure Pipelines).
 
 ## Enterprise / Team Licensing
 
