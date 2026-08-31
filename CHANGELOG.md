@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+## [0.2.0]
+
+### Added
+
+- CircleCI support (`.circleci/config.yml`) alongside the existing
+  GitHub Actions and GitLab CI scanning -- a script referenced only
+  there is now correctly recognized as used instead of a false
+  orphan-candidate.
+
 ## [0.1.1]
 
 ### Added
@@ -42,6 +51,7 @@
 - 100% static text/PSI analysis -- no Node.js/npm process spawned, no
   network call.
 
-[Unreleased]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.1.1...HEAD
+[Unreleased]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/GapHunterLabs/unused-npm-script-companion/commits/0.1.0
