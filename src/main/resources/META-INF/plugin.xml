@@ -8,14 +8,16 @@
         <code>"scripts"</code> section, showing whether that script is
         actually <b>referenced</b> anywhere in your project -- or an
         orphan nobody calls, a real candidate for cleanup.</p>
-        <p><b>Where it looks (v0.1):</b></p>
+        <p><b>Where it looks:</b></p>
         <ul>
             <li>The <code>package.json</code>'s own other scripts
             (<code>"build": "npm run clean &amp;&amp; npm run compile"</code>
             marks <code>clean</code>/<code>compile</code> as used).</li>
             <li>GitHub Actions workflows
-            (<code>.github/workflows/*.yml</code>) and GitLab CI
-            (<code>.gitlab-ci.yml</code>) next to the package.json.</li>
+            (<code>.github/workflows/*.yml</code>), GitLab CI
+            (<code>.gitlab-ci.yml</code>), and CircleCI
+            (<code>.circleci/config.yml</code>) next to the
+            package.json.</li>
             <li><code>README.md</code> next to the package.json.</li>
         </ul>
         <p>Only real invocations count -- <code>npm run &lt;name&gt;</code>,
