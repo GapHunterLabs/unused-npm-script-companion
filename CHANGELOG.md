@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+## [0.2.1]
+
+### Fixed
+
+- Marketplace listing (`plugin.xml`) still enumerated only GitHub
+  Actions and GitLab CI under "Where it looks (v0.1)" -- stale since
+  0.2.0 added CircleCI support. README already listed CircleCI;
+  `plugin.xml` now matches.
+
 ## [0.2.0]
 
 ### Added
@@ -51,7 +60,8 @@
 - 100% static text/PSI analysis -- no Node.js/npm process spawned, no
   network call.
 
-[Unreleased]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.2.1...HEAD
+[0.2.1]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/GapHunterLabs/unused-npm-script-companion/commits/0.1.0
