@@ -7,6 +7,12 @@ nobody calls, a real candidate for cleanup. 100% static text/PSI
 analysis of files already open in your project: no Node.js/npm
 process spawned, no network call.
 
+![Unused npm Script Companion: see which package.json scripts nothing calls anymore](docs/media/hero.gif)
+
+Each feature on its own:
+[Orphaned scripts](docs/media/01-orphaned.gif) ·
+[Where it's used](docs/media/02-where-used.gif)
+
 ## Why it exists
 
 An original idea, not a port of an existing competitor — validated
