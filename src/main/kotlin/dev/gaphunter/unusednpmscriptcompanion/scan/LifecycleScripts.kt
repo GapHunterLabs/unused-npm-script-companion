@@ -24,7 +24,8 @@ object LifecycleScripts {
      * (static text analysis only) has no way to observe.
      */
     private val ALWAYS_USED: Set<String> = setOf(
-        "start",
+        // `npm start`, `npm stop` and `npm restart` run these by name, no `run` (stop/restart added in 0.2.3)
+        "start", "stop", "restart",
         "pretest", "test", "posttest",
         "prepublish", "prepare", "prepublishOnly", "prepack", "postpack", "publish", "postpublish",
         "preinstall", "install", "postinstall",

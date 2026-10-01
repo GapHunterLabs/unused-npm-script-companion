@@ -51,17 +51,30 @@ A script named `build` is never marked "used" just because the word
 "build" appears somewhere unrelated in a README paragraph or another
 script's comment. Only these runner shapes count as a real reference:
 
-- `npm run <name>` — the canonical form, works for any script.
-- `yarn <name>` — Yarn's shorthand, no `run` keyword needed.
-- `pnpm <name>` and `pnpm run <name>` — pnpm accepts both forms.
+- `npm run <name>` — the canonical form, works for any script — and its
+  alias `npm run-script <name>`.
+- `yarn <name>` and `yarn run <name>`.
+- `pnpm <name>` and `pnpm run <name>`.
+- `bun <name>` and `bun run <name>`.
+- Any of these with options before the name: `npm run -s build`,
+  `npm run --if-present lint`, `yarn --silent run test`.
+- The npm-run-all CLIs, whose arguments are script names or globs:
+  `run-s clean compile`, `run-p lint test`,
+  `npm-run-all --parallel lint:*` (`*` stays within one `:` segment,
+  `**` crosses them).
 
-The match requires a real runner keyword immediately before the exact
-script name, with the name not extending into a longer, different
+(Before 0.2.3 only the first three shapes without `run` for yarn were
+recognized: a script called as `yarn run e2e` in CI, or through
+`run-s`/`run-p` from another script, was flagged "possibly unused"
+while it was in use.)
+
+The match requires a real runner keyword before the exact script
+name, with the name not extending into a longer, different
 identifier — `npm run build` does not mark `build-prod` as used, and
 `npm run build-prod` does not mark `build` as used, and `npm run
-rebuild` does not mark `build` as used either. (`npm start`/`npm test`
-without `run` are intentionally not matched by this text search — see
-next section for why that's a non-issue.)
+rebuild` does not mark `build` as used either. (`npm start`/`npm test`/
+`npm stop`/`npm restart` without `run` are intentionally not matched by
+this text search — see next section for why that's a non-issue.)
 
 ## npm lifecycle scripts: never flagged as orphaned
 
@@ -79,6 +92,7 @@ itself, not project source:
 - `start` — the universal `npm start` entry point; a human runs it
   directly from the command line, which static text analysis has no
   way to observe, so flagging it "orphaned" would be actively wrong.
+  Same for `stop` and `restart` (`npm stop`, `npm restart`).
 - **Any `pre`/`post` prefix of another script that genuinely exists.**
   If `build` exists, `prebuild`/`postbuild` are treated as used by npm
   convention — but a lone `prefoo` with no real `foo` script anywhere
