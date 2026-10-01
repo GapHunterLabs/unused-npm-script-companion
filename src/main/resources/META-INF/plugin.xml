@@ -20,16 +20,19 @@
             package.json.</li>
             <li><code>README.md</code> next to the package.json.</li>
         </ul>
-        <p>Only real invocations count -- <code>npm run &lt;name&gt;</code>,
-        <code>yarn &lt;name&gt;</code>, <code>pnpm &lt;name&gt;</code> /
-        <code>pnpm run &lt;name&gt;</code> -- never a bare word match, so a
+        <p>Only real invocations count -- <code>npm run &lt;name&gt;</code>
+        (or <code>npm run-script</code>), <code>yarn [run] &lt;name&gt;</code>,
+        <code>pnpm [run] &lt;name&gt;</code>, <code>bun [run] &lt;name&gt;</code>,
+        with or without options before the name, and the npm-run-all CLIs
+        (<code>run-s</code>, <code>run-p</code>, <code>npm-run-all</code>,
+        globs included) -- never a bare word match, so a
         script named <code>build</code> is never flagged as "used" just
         because the word appears unrelated somewhere in a README
         paragraph.</p>
         <p>npm lifecycle scripts (<code>pretest</code>/<code>test</code>/
         <code>posttest</code>, <code>prepare</code>/<code>prepublishOnly</code>,
         <code>preinstall</code>/<code>postinstall</code>,
-        <code>preversion</code>/<code>postversion</code>, <code>start</code>,
+        <code>preversion</code>/<code>postversion</code>, <code>start</code>/<code>stop</code>/<code>restart</code>,
         and any real script's own <code>pre</code>/<code>post</code> hook)
         are never flagged as orphaned, even with zero text references --
         npm runs those automatically by convention.</p>

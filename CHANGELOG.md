@@ -4,6 +4,18 @@
 
 ## [Unreleased]
 
+## [0.2.3]
+
+### Fixed
+
+- A script called with `yarn run <name>` (a common CI form) was flagged
+  "possibly unused" while it was in use. Also recognized now:
+  `npm run-script`, `bun` / `bun run`, options before the name
+  (`npm run -s build`), and the npm-run-all CLIs `run-s`, `run-p` and
+  `npm-run-all`, including globs (`lint:*`).
+- `stop` and `restart` are run by `npm stop` / `npm restart` and are
+  no longer flagged as orphaned.
+
 ## [0.2.2]
 
 ### Fixed
@@ -67,7 +79,8 @@
 - 100% static text/PSI analysis -- no Node.js/npm process spawned, no
   network call.
 
-[Unreleased]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.2.2...HEAD
+[Unreleased]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.2.3...HEAD
+[0.2.3]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.2.2...0.2.3
 [0.2.2]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.2.1...0.2.2
 [0.2.1]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/GapHunterLabs/unused-npm-script-companion/compare/0.1.1...0.2.0

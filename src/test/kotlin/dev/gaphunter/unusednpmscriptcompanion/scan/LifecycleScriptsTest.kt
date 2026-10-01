@@ -67,4 +67,12 @@ class LifecycleScriptsTest {
     fun `an ordinary script name is not always used`() {
         assertFalse(LifecycleScripts.isAlwaysUsed("lint", setOf("lint", "build")))
     }
+
+    // Regression (2026-10-01): `npm stop` / `npm restart` run these by name.
+    @Test
+    fun `stop and restart are always used`() {
+        assertTrue(LifecycleScripts.isAlwaysUsed("stop", setOf("stop")))
+        assertTrue(LifecycleScripts.isAlwaysUsed("restart", setOf("restart")))
+        assertTrue(LifecycleScripts.isAlwaysUsed("prestop", setOf("stop", "prestop")))
+    }
 }

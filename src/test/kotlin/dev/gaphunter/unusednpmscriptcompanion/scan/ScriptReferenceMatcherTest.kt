@@ -50,4 +50,48 @@ class ScriptReferenceMatcherTest {
     fun `no match at all when text has nothing relevant`() {
         assertFalse(ScriptReferenceMatcher.isReferenced("Some unrelated README prose.", "build"))
     }
+
+    // Regression (2026-10-01): these real invocation forms were not
+    // recognized, so the script was reported as "possibly unused".
+    @Test
+    fun `matches yarn run form`() {
+        assertTrue(ScriptReferenceMatcher.isReferenced("      - run: yarn run e2e", "e2e"))
+    }
+
+    @Test
+    fun `matches npm run-script and bun forms`() {
+        assertTrue(ScriptReferenceMatcher.isReferenced("npm run-script lint", "lint"))
+        assertTrue(ScriptReferenceMatcher.isReferenced("bun run dev", "dev"))
+        assertTrue(ScriptReferenceMatcher.isReferenced("bun dev", "dev"))
+    }
+
+    @Test
+    fun `matches with options between the runner and the name`() {
+        assertTrue(ScriptReferenceMatcher.isReferenced("npm run -s build", "build"))
+        assertTrue(ScriptReferenceMatcher.isReferenced("npm run --if-present lint", "lint"))
+        assertTrue(ScriptReferenceMatcher.isReferenced("yarn --silent run test:unit", "test:unit"))
+    }
+
+    @Test
+    fun `matches npm-run-all arguments, exact and globs`() {
+        val scripts = "\"build\": \"run-s clean compile\", \"check\": \"npm-run-all --parallel lint:* test\""
+        assertTrue(ScriptReferenceMatcher.isReferenced(scripts, "clean"))
+        assertTrue(ScriptReferenceMatcher.isReferenced(scripts, "compile"))
+        assertTrue(ScriptReferenceMatcher.isReferenced(scripts, "lint:js"))
+        assertTrue(ScriptReferenceMatcher.isReferenced(scripts, "test"))
+        assertFalse(ScriptReferenceMatcher.isReferenced(scripts, "lint"))
+        assertFalse(ScriptReferenceMatcher.isReferenced(scripts, "lint:js:fix"))
+        assertTrue(ScriptReferenceMatcher.isReferenced("run-p build:**", "build:web:prod"))
+    }
+
+    @Test
+    fun `npm-run-all arguments stop at the end of the shell command`() {
+        assertFalse(ScriptReferenceMatcher.isReferenced("\"all\": \"run-s clean && deploy\"", "deploy"))
+        assertFalse(ScriptReferenceMatcher.isReferenced("\"all\": \"run-p lint\", \"other\": \"echo deploy\"", "deploy"))
+    }
+
+    @Test
+    fun `a word that only contains run-s is not the npm-run-all CLI`() {
+        assertFalse(ScriptReferenceMatcher.isReferenced("rerun-s clean", "clean"))
+    }
 }
