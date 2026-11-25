@@ -15,22 +15,7 @@ Each feature on its own:
 
 ## Why it exists
 
-An original idea, not a port of an existing competitor — validated
-against this catalog's own idea-validation discipline before
-being built: (1) confirmed no plugin in this catalog or in JetBrains
-Marketplace does exactly this ("unused dependency" tools like Knip or
-Jonnyzzz Dependencies analyze packages under `node_modules`, never the
-scripts declared in the project's own `package.json`); (2) confirmed
-buildable in the ~10-day budget with techniques this catalog already
-has proven — the bundled JSON plugin's real PSI to read `"scripts"`
-(same pattern as `json-schema-companion`/`json-to-code-companion`),
-and hand-rolled text/regex matching over CI configs and README.md
-(same pattern as `circular-dependency-companion`'s Gradle DSL parser).
-Same "apuesta consciente sin ancla de mercado" treatment as Refactor
-Simulator / Test Scaffold Companion / Dockerfile Layer Size Companion /
-Circular Dependency Companion: v0.1 ships free, no time/marketing
-investment disproportionate to real demand signal until there's
-evidence of adoption.
+An original idea, not a port of an existing competitor. Before building it I confirmed that no plugin in JetBrains Marketplace does exactly this: "unused dependency" tools like Knip or Jonnyzzz Dependencies analyze packages under `node_modules`, never the scripts declared in the project's own `package.json`. It reads `"scripts"` through the real PSI of the bundled JSON plugin (the same approach as `json-schema-companion` and `json-to-code-companion`) and matches them against CI configs and README.md with plain-text and regex scanning. It is free.
 
 ## Where it looks for a reference (v0.1 scope, stated honestly)
 
